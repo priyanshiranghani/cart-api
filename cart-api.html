@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart API</title>
+</head>
+<body>
+
+    <div align="center">
+        <h2>Cart API</h2>
+
+        <!-- table -->
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Price</th>
+                    <th>Total Things</th>
+                    <th>Total Pr.</th>
+                    <th>Total Discount</th>
+                    <th>img</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+
+            </tbody>
+        </table>
+
+    </div>
+    
+    
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script>
+        
+        fetch('https://dummyjson.com/carts')
+            .then(res => res.json())
+            .then(data => {
+                let tbl = '';
+                data.carts.map(cart => {
+                    cart.products.map(thing => {
+                        tbl += `
+                            <tr>
+                                <td>${cart.id}</td>
+                                <td>${thing.title}</td>
+                                <td>${thing.price}</td>
+                                <td>${cart.totalProducts}</td>
+                                <td>${cart.total}</td>
+                                <td>${cart.discountedTotal}</td>
+                                <td><img src="${thing.thumbnail}" alt="Thumbnail" width="90"></td>
+                            </tr>
+                        `;
+                    });
+                });
+                document.getElementById('tbody').innerHTML = tbl;
+            })
+            
+
+    </script>
+</body>
+</html>
+
+
+
